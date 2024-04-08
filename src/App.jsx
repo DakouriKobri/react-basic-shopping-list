@@ -1,8 +1,17 @@
+// NPM Packages
+import { useState } from 'react';
+
 // Project Imports
 import './App.css';
 import groceryCartImage from './assets/grocery-cart.png';
 
 function App() {
+  const [inputValue, setInputValue] = useState('');
+
+  function handleOnchange(event) {
+    setInputValue(event.target.value);
+  }
+
   return (
     <main className="App">
       <div>
@@ -16,6 +25,8 @@ function App() {
               type="text"
               placeholder="Add an Item"
               className="item-input"
+              value={inputValue}
+              onChange={handleOnchange}
             />
           </div>
         </div>
