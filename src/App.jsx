@@ -7,9 +7,23 @@ import groceryCartImage from './assets/grocery-cart.png';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
+  const [shoppingItems, setShoppingItems] = useState([]);
 
   function handleOnchange(event) {
     setInputValue(event.target.value);
+  }
+
+  function handleAddShoppingItem(event) {
+    if (event.key === 'Enter' && inputValue) {
+      const newItem = {
+        name: inputValue,
+        quantity: 1,
+        complete: false,
+      };
+
+      setShoppingItems([...shoppingItems, newItem]);
+      setInputValue('');
+    }
   }
 
   return (
@@ -27,6 +41,7 @@ function App() {
               className="item-input"
               value={inputValue}
               onChange={handleOnchange}
+              onKeyDown={handleAddShoppingItem}
             />
           </div>
         </div>
