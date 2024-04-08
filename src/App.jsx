@@ -8,12 +8,20 @@ function App() {
       <div>
         <div>
           <h4 className="success">You&apos;re done</h4>
-          <div className="header">Shopping List</div>
-          <img src={groceryCartImage} alt="Abstract grocery cart" />
-          <input type="text" placeholder="Add an Item" className="item-input" />
+
+          <div className="header">
+            <h1>Shopping List</h1>
+            <img src={groceryCartImage} alt="Abstract grocery cart" />
+            <input
+              type="text"
+              placeholder="Add an Item"
+              className="item-input"
+            />
+          </div>
         </div>
+
         <ul>
-          <li>
+          <li className="item">
             <div className="container">
               <input type="checkbox" />
               <p>Carrots</p>
