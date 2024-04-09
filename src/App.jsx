@@ -1,5 +1,5 @@
 // NPM Packages
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // Project Imports
 import './App.css';
@@ -7,7 +7,10 @@ import groceryCartImage from './assets/grocery-cart.png';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
+  const [isAllItemsCompleted, setIsAllItemsCompleted] = useState(false);
   const [shoppingItems, setShoppingItems] = useState([]);
+
+  console.log('isAllItemsCompleted:', isAllItemsCompleted);
 
   function handleOnchange(event) {
     setInputValue(event.target.value);
@@ -56,6 +59,22 @@ function App() {
     setShoppingItems(updatedShoppingItems);
   }
 
+  const handleAllItemsIsCompleted = useCallback(() => {
+    if (!shoppingItems.length) {
+      return setIsAllItemsCompleted(false);
+    }
+
+    const isAllCompleted = !shoppingItems.some(
+      (item) => item.isCompleted === false
+    );
+
+    setIsAllItemsCompleted(isAllCompleted);
+  }, [shoppingItems]);
+
+  useEffect(() => {
+    handleAllItemsIsCompleted();
+  }, [handleAllItemsIsCompleted]);
+
   const shoppingList = shoppingItems.map((item, index) => {
     const { name, quantity, isCompleted } = item;
 
@@ -88,7 +107,7 @@ function App() {
     <main className="App">
       <div>
         <div>
-          <h4 className="success">You&apos;re done</h4>
+          {isAllItemsCompleted && <h4 className="success">You&apos;re done</h4>}
 
           <div className="header">
             <h1>Shopping List</h1>
@@ -104,7 +123,7 @@ function App() {
           </div>
         </div>
 
-        <ul>{shoppingList}</ul>
+        {shoppingItems.length !== 0 && <ul>{shoppingList}</ul>}
       </div>
     </main>
   );

@@ -71,3 +71,7 @@ li p span {
   text-align: center;
   color: rgba(100, 180, 100);
 }
+
+.hidden {
+  visibility: hidden;
+}
