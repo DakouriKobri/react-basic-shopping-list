@@ -24,7 +24,7 @@ function App() {
         const newItem = {
           name: inputValue,
           quantity: 1,
-          complete: false,
+          isCompleted: false,
         };
 
         updatedShoppingItems.push(newItem);
@@ -45,17 +45,33 @@ function App() {
     setShoppingItems(updatedShoppingItems);
   }
 
+  function handleIsCompleted(event, name) {
+    const updatedShoppingItems = [...shoppingItems];
+
+    const shoppingItemIndex = updatedShoppingItems.findIndex(
+      (item) => item.name === name
+    );
+    updatedShoppingItems[shoppingItemIndex].isCompleted = event.target.checked;
+
+    setShoppingItems(updatedShoppingItems);
+  }
+
   const shoppingList = shoppingItems.map((item, index) => {
-    const { name, quantity } = item;
+    const { name, quantity, isCompleted } = item;
 
     return (
       <li key={`${index}-${name}`} className="item">
         <div className="container">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={isCompleted}
+            onChange={(event) => handleIsCompleted(event, name)}
+          />
           <p>
             {name} {quantity > 1 && <span> x{quantity}</span>}
           </p>
         </div>
+
         <div>
           <button
             className="remove-button"
