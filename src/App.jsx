@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 // Project Imports
 import './App.css';
+import Input from './components/Input';
+import ShoppingList from './components/ShoppingList';
 import groceryCartImage from './assets/grocery-cart.png';
 
 function App() {
@@ -77,55 +79,33 @@ function App() {
     handleAllItemsIsCompleted();
   }, [handleAllItemsIsCompleted]);
 
-  const shoppingList = shoppingItems.map((item, index) => {
-    const { name, quantity, isCompleted } = item;
-
-    return (
-      <li key={`${index}-${name}`} className="item">
-        <div className="container">
-          <input
-            type="checkbox"
-            checked={isCompleted}
-            onChange={(event) => handleIsCompleted(event, name)}
-          />
-          <p>
-            {name} {quantity > 1 && <span> x{quantity}</span>}
-          </p>
-        </div>
-
-        <div>
-          <button
-            className="remove-button"
-            onClick={() => handleRemoveItem(name)}
-          >
-            &times;
-          </button>
-        </div>
-      </li>
-    );
-  });
-
   return (
     <main className="App">
       <div>
         <div>
-          {isAllItemsCompleted && <h4 className="success">You&apos;re done</h4>}
+          {/* {isAllItemsCompleted && <h4 className="success">You&apos;re done</h4>} */}
+          <h4 className={isAllItemsCompleted ? 'success' : 'hidden'}>
+            You&apos;re done
+          </h4>
 
           <div className="header">
             <h1>Shopping List</h1>
             <img src={groceryCartImage} alt="Abstract grocery cart" />
-            <input
-              type="text"
-              placeholder="Add an Item"
-              className="item-input"
-              value={inputValue}
-              onChange={handleOnchange}
-              onKeyDown={handleAddShoppingItem}
+            <Input
+              inputValue={inputValue}
+              handleOnchange={handleOnchange}
+              handleAddShoppingItem={handleAddShoppingItem}
             />
           </div>
         </div>
 
-        {shoppingItems.length !== 0 && <ul>{shoppingList}</ul>}
+        {shoppingItems.length !== 0 && (
+          <ShoppingList
+            items={shoppingItems}
+            onComplete={handleIsCompleted}
+            onRemove={handleRemoveItem}
+          />
+        )}
 
         {shoppingItems.length > 0 && (
           <div className="btn-container">
