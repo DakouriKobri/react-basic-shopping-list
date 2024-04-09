@@ -37,6 +37,14 @@ function App() {
     }
   }
 
+  function handleRemoveItem(name) {
+    const updatedShoppingItems = [...shoppingItems].filter(
+      (item) => item.name !== name
+    );
+
+    setShoppingItems(updatedShoppingItems);
+  }
+
   const shoppingList = shoppingItems.map((item, index) => {
     const { name, quantity } = item;
 
@@ -49,7 +57,12 @@ function App() {
           </p>
         </div>
         <div>
-          <button className="remove-button">&times;</button>
+          <button
+            className="remove-button"
+            onClick={() => handleRemoveItem(name)}
+          >
+            &times;
+          </button>
         </div>
       </li>
     );
