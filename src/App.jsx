@@ -11,14 +11,14 @@ function App() {
   const [shoppingItems, setShoppingItems] = useState([]);
 
   function handleOnchange(event) {
-    setInputValue(event.target.value.toLowerCase());
+    setInputValue(event.target.value);
   }
 
   function handleAddShoppingItem(event) {
     if (event.key === 'Enter' && inputValue) {
       const updatedShoppingItems = [...shoppingItems];
       const existingItemIndex = updatedShoppingItems.findIndex(
-        (item) => item.name === inputValue
+        (item) => item.name.toLowerCase() === inputValue.toLowerCase()
       );
 
       if (existingItemIndex === -1) {
