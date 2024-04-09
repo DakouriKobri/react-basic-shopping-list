@@ -45,7 +45,7 @@ function App() {
         <div className="container">
           <input type="checkbox" />
           <p>
-            {name} <span> x{quantity}</span>
+            {name} {quantity > 1 && <span> x{quantity}</span>}
           </p>
         </div>
         <div>
