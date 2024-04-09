@@ -10,10 +10,8 @@ function App() {
   const [isAllItemsCompleted, setIsAllItemsCompleted] = useState(false);
   const [shoppingItems, setShoppingItems] = useState([]);
 
-  console.log('isAllItemsCompleted:', isAllItemsCompleted);
-
   function handleOnchange(event) {
-    setInputValue(event.target.value);
+    setInputValue(event.target.value.toLowerCase());
   }
 
   function handleAddShoppingItem(event) {
@@ -71,6 +69,10 @@ function App() {
     setIsAllItemsCompleted(isAllCompleted);
   }, [shoppingItems]);
 
+  function clearList() {
+    setShoppingItems([]);
+  }
+
   useEffect(() => {
     handleAllItemsIsCompleted();
   }, [handleAllItemsIsCompleted]);
@@ -125,11 +127,13 @@ function App() {
 
         {shoppingItems.length !== 0 && <ul>{shoppingList}</ul>}
 
-        <div className="btn-container">
-          <button type="button" className="btn">
-            Clear List
-          </button>
-        </div>
+        {shoppingItems.length > 0 && (
+          <div className="btn-container">
+            <button type="button" className="btn" onClick={clearList}>
+              Clear List
+            </button>
+          </div>
+        )}
       </div>
     </main>
   );
