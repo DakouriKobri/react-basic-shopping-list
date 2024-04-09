@@ -15,16 +15,45 @@ function App() {
 
   function handleAddShoppingItem(event) {
     if (event.key === 'Enter' && inputValue) {
-      const newItem = {
-        name: inputValue,
-        quantity: 1,
-        complete: false,
-      };
+      const updatedShoppingItems = [...shoppingItems];
+      const existingItemIndex = updatedShoppingItems.findIndex(
+        (item) => item.name === inputValue
+      );
 
-      setShoppingItems([...shoppingItems, newItem]);
+      if (existingItemIndex === -1) {
+        const newItem = {
+          name: inputValue,
+          quantity: 1,
+          complete: false,
+        };
+
+        updatedShoppingItems.push(newItem);
+      } else {
+        updatedShoppingItems[existingItemIndex].quantity++;
+      }
+
+      setShoppingItems(updatedShoppingItems);
       setInputValue('');
     }
   }
+
+  const shoppingList = shoppingItems.map((item, index) => {
+    const { name, quantity } = item;
+
+    return (
+      <li key={`${index}-${name}`} className="item">
+        <div className="container">
+          <input type="checkbox" />
+          <p>
+            {name} <span> x{quantity}</span>
+          </p>
+        </div>
+        <div>
+          <button className="remove-button">&times;</button>
+        </div>
+      </li>
+    );
+  });
 
   return (
     <main className="App">
@@ -46,17 +75,7 @@ function App() {
           </div>
         </div>
 
-        <ul>
-          <li className="item">
-            <div className="container">
-              <input type="checkbox" />
-              <p>Carrots</p>
-            </div>
-            <div>
-              <button className="remove-button">&times;</button>
-            </div>
-          </li>
-        </ul>
+        <ul>{shoppingList}</ul>
       </div>
     </main>
   );

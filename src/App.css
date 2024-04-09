@@ -54,6 +54,11 @@ li p {
   margin-left: 10px;
 }
 
+li p span {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
 .remove-button {
   color: rgba(230, 85, 85);
   background-color: transparent;
