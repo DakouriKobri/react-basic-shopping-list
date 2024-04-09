@@ -124,6 +124,12 @@ function App() {
         </div>
 
         {shoppingItems.length !== 0 && <ul>{shoppingList}</ul>}
+
+        <div className="btn-container">
+          <button type="button" className="btn">
+            Clear List
+          </button>
+        </div>
       </div>
     </main>
   );
