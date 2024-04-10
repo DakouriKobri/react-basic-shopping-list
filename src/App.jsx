@@ -99,21 +99,22 @@ function App() {
           </div>
         </div>
 
-        {shoppingItems.length !== 0 && (
-          <ShoppingList
-            items={shoppingItems}
-            onComplete={handleIsCompleted}
-            onRemove={handleRemoveItem}
-          />
-        )}
-
-        {shoppingItems.length > 0 && (
-          <div className="btn-container">
-            <button type="button" className="btn" onClick={clearList}>
-              Clear List
-            </button>
-          </div>
-        )}
+        <div className="list-and-btn-container">
+          {shoppingItems.length !== 0 && (
+            <ShoppingList
+              items={shoppingItems}
+              onComplete={handleIsCompleted}
+              onRemove={handleRemoveItem}
+            />
+          )}
+          {shoppingItems.length > 0 && (
+            <div className="btn-container">
+              <button type="button" className="btn" onClick={clearList}>
+                Clear List
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );
